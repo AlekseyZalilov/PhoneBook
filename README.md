@@ -1,8 +1,16 @@
 # PhoneBook
-Production telephone directory software module (Node.js + PostgreSQL)
-Установите все зависимости:
+__Production telephone directory software module (Node.js + PostgreSQL)__
+---
+_Установите все зависимости:_
+```
 npm i
-Подключиться к базе данных:
-Вы должны подключить это приложение к базе данных PostgreSQL, используя переменные среды.
-Запустить сервер разработки:
+```
+
+_Подключиться к базе данных:_
+
+>Вы должны подключить это приложение к базе данных PostgreSQL, используя переменные среды.
+
+_Запустить сервер разработки:_
+```
 npm run dev
+```
