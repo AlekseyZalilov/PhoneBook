@@ -1,0 +1,26 @@
+<%- include('header',{ title:'Login' }); -%>
+<div class="topnav">
+  <a class="active" href="/login">Главная</i></a>
+</div>
+    <div class="container">
+        <h1>Авторизация</h1>
+        <form action="" method="POST">
+            <label for="user_email">Электронная почта</label>
+            <input type="email" class="input" name="_email" autocomplete="off" id="user_email"
+                placeholder="Введите электронную почту">
+            <label for="user_pass">Пароль</label>
+            <input type="password" class="input" name="_password" id="user_pass" placeholder="Введите пароль">
+            <% if(typeof error !=='undefined' ){ %>
+                <div class="err-msg">
+                    <%= error %>
+                </div>
+                <% } %>
+                   
+                    <input id="button" type="submit" value="Login" onclick="return isOK();">
+                    <div class="link"><a href="./signup">Зарегестрироваться</a></div>
+        </form>
+    </div>
+
+    <%- include('footer'); -%>
+
+    

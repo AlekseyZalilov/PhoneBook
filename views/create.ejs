@@ -1,0 +1,40 @@
+<%- include('header',{
+    title:'Create'
+}); -%>
+<div class="topnav">
+  <a class="active" href="/">Главная</a>
+</div>
+<div class="container">
+    <h1>Добавить контакт</h1>
+    <form action="" method="post">
+        <label for="contact_image" class="format-label">Выберете фотографию</label>
+        <input type="file" class="input" name="_image"autocomplete="off" id="contact_image">
+        <label for="contact_surname">Фамилия</label>
+        <input type="text" class="input" name="_surname" autocomplete="off" id="contact_surname" placeholder="Введите фамилию">
+        <label for="contact_name">Имя</label>
+        <input type="text" class="input" name="_name" autocomplete="off" id="contact_name" placeholder="Введите имя">
+        <label for="contact_patronymic">Отчество</label>
+        <input type="text" class="input" name="_patronymic" autocomplete="off" id="contact_patronymic" placeholder="Введите отчество">
+        <label for="contact_primaryp">Основной раб.телефон</label>
+        <input type="text" class="input" name="_primaryp" autocomplete="off" id="contact_primaryp" placeholder="Введите основной раб.телефон">
+        <label for="contact_additional">Дополнительный раб.телефон</label>
+        <input type="text" class="input" name="_additional" autocomplete="off" id="contact_additional" placeholder="Введите дополнительный раб.телефон">
+        <label for="contact_job">Должность</label>
+        <input type="text" class="input" name="_job" autocomplete="off" id="contact_job" placeholder="Введите должнсоть">
+        <label for="contact_service">Служба</label>
+        <input type="text" class="input" name="_service" autocomplete="off" id="contact_service" placeholder="Введите службу">
+        <label for="contact_shop">Цех/Отдел</label>
+        <input type="text" class="input" name="_shop" autocomplete="off" id="contact_shop" placeholder="Введите Цех/отдел">
+        <label for="contact_site">Участок</label>
+        <input type="text" class="input" name="_site" autocomplete="off" id="contact_site" placeholder="Введите участок">
+          <% if(typeof mesage != 'undefined'){ %>
+            <div class="success-msg"><%= mesage %></div><% }
+            if(typeof error !== 'undefined'){ %>
+            <div class="err-msg"><%= error %></div><% } %>
+            <input type="submit" value="Create">
+      </form>
+      
+</div>
+
+
+<%- include('footer'); -%>

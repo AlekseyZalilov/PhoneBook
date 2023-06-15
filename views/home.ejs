@@ -1,0 +1,198 @@
+<%- include('header'); -%>
+    <div class="topnav">
+        <a class="active" href="/">Главная</i></a>
+        <form method="GET" action="/search">
+            <input type="text" name="searchQuery" placeholder="Поиск.." id="search-text" onkeyup="tableSearch()">
+            <!-- <input type="submit" value="Search"> -->
+        </form>
+        <% if(user.role==='admin' ){ %>
+            <a href="/create">Добавить контакт</a>
+            <a href="/import">Импортировать контакты</a>
+
+            <% } %>
+                <a href="/val">Показать важные контакты</a>
+                <a href="/logout">Выйти</a>
+    </div>
+    <div class="container">
+        <div class="profile">
+            <div class="img">Добро пожаловать!</div>
+            <h2>
+                <%= user.name %>
+            </h2>
+            <span>
+                <%= user.email %>
+            </span>
+
+            <!-- Table contact -->
+            <table class="table table-bordered table-sm" id="info-table">
+                <thead class="table-primary">
+                    <tr>
+                        <th onclick="sortTable(0)">№</th>
+                        <th>Фотография</th>
+                        <th onclick="sortTable(1)">Фамилия</th>
+                        <th onclick="sortTable(2)">Имя</th>
+                        <th onclick="sortTable(3)">Отчество</th>
+                        <th onclick="sortTable(4)">Основной раб.телефон</th>
+                        <th onclick="sortTable(5)">Дополнительный раб.телефон</th>
+                        <th onclick="sortTable(6)">Должность</th>
+                        <th onclick="sortTable(7)">Служба</th>
+                        <th onclick="sortTable(8)">Цех/Отдел</th>
+                        <th onclick="sortTable(9)">Участок</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (i=0; i < contacts.length; i++) { contact=contacts[i] %>
+                        <td>
+                            <%= i+1 %>
+                                </е>
+                        <td>
+                            <%= contact.image %>
+                                </е>
+                        <td>
+                            <%= contact.surname %>
+                        </td>
+                        <td>
+                            <%= contact.name %>
+                        </td>
+                        <td>
+                            <%= contact.patronymic %>
+                        </td>
+                        <td>
+                            <%= contact.primaryp %>
+                        </td>
+                        <td>
+                            <%= contact.additional %>
+                        </td>
+                        <td>
+                            <%= contact.job %>
+                        </td>
+                        <td>
+                            <%= contact.service %>
+                        </td>
+                        <td>
+                            <%= contact.shop %>
+                        </td>
+                        <td>
+                            <%= contact.site %>
+                        </td>
+                        <th>
+                            <% if(user.role==='admin' ){ %>
+                                <a name="upd" href=<%='/update?id=' + contact.id %>>Изменить</i></i></a>
+                                <a href=<%='?delete_id=' + contact.id %>> Удалить</i></i></a>
+                                <% } %>
+                                    <% if(user.role==='admin' ){ %>
+                                        <% if( contact.val ){ %>
+                                            <a href=<%='?val_id=' + contact.id %> name="val"
+                                                style="color: red">Удалить
+                                                важный</i></i></a>
+                                            <% } else { %>
+                                                <a href=<%='?val_id=' + contact.id %> name="val"
+                                                    style="color: green">Добавить в
+                                                    важный</i></i></a>
+                                                <% } %>
+                                                    <% } else { %>
+                                                        <% if( contact.valu ){ %>
+                                                            <a href=<%='?val_id=' + contact.id %>
+                                                                name="val"
+                                                                style="color: red">Удалить
+                                                                важный</i></i></a>
+                                                            <% } else { %>
+                                                                <a href=<%='?val_id=' + contact.id %>
+                                                                    name="val"
+                                                                    style="color: green">Добавить
+                                                                    в важный</i></i></a>
+                                                                <% } %>
+                                                                    <% } %>
+
+
+                        </th>
+
+                </tbody>
+                <% } %>
+
+            </table>
+
+            <script>
+                function tableSearch() {
+                    var phrase = document.getElementById('search-text');
+                    var table = document.getElementById('info-table');
+                    var regPhrase = new RegExp(phrase.value, 'i');
+                    var flag = false;
+                    for (var i = 1; i < table.rows.length; i++) {
+                        flag = false;
+                        for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
+                            flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
+                            if (flag) break;
+                        }
+                        if (flag) {
+                            table.rows[i].style.display = "";
+                        } else {
+                            table.rows[i].style.display = "none";
+                        }
+
+                    }
+                }
+
+
+                if (window.location.pathname === "/import") {
+                    alert("Контакты успешно импортированы");
+                    // получаем все элементы с именем val
+                    const elements = document.getElementsByTagName("a");
+                    const el = document.getElementsByTagName("div");
+                    const ele = document.getElementsByTagName("th");
+
+                    for (let i = 0; i < el.length; i++) {
+                        if (el[i].textContent === "Добро пожаловать!") {
+                            el[i].remove();
+                        }
+                    }
+
+                    for (let i = 0; i < elements.length; i++) {
+                        if (elements[i].textContent === "Показать важные контакты") {
+                            elements[i].remove();
+                        }
+                    }
+
+                    for (let i = 0; i < elements.length; i++) {
+                        if (elements[i].textContent === "Добавить контакт") {
+                            elements[i].remove();
+                        }
+                    }
+
+                    for (let i = 0; i < elements.length; i++) {
+                        if (elements[i].textContent === "Импортировать контакты") {
+                            elements[i].remove();
+                        }
+                    }
+
+                    for (let i = 0; i < elements.length; i++) {
+                        if (elements[i].textContent === "Изменить") {
+                            elements[i].remove();
+                        }
+                    }
+
+                }
+                if (window.location.pathname === "/val") {
+                    // получаем все элементы с именем val
+                    const elements = document.getElementsByTagName("a");
+                    const el = document.getElementsByTagName("div");
+
+                    for (let i = 0; i < el.length; i++) {
+                        if (el[i].textContent === "Добро пожаловать!") {
+                            el[i].remove();
+                        }
+                    }
+
+                    for (let i = 0; i < elements.length; i++) {
+                        if (elements[i].textContent === "Показать важные контакты") {
+                            elements[i].remove();
+                        }
+                    }
+
+                }
+
+            </script>
+        </div>
+    </div>
+    <%- include('footer'); -%>

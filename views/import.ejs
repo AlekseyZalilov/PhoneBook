@@ -1,0 +1,105 @@
+<%- include('header'); -%>
+<div class="topnav">
+    <a class="active" href="/">Главная</i></a>
+    <a href="/logout">Выйти</a>
+  </div>
+<div class="container">
+    <div class="profile">
+        <div class="img">Добро пожаловать!</div>
+        <h2><%= user.name %></h2>
+        <% if(user.role ==='postgres'){ %>
+            <span><img src="" alt=""></span>
+            <% } %>
+        <span><%= user.email %></span>
+        <!-- <div class="err-msg">
+            Welcome  <%= user.role %>
+         </div> -->
+        <% if(user.role ==='admin'){ %>
+            
+            <div class="crud">
+                <a href="/create">Добавить контакт</a>
+             </div>
+            <% } %>
+
+            <% if(user.role ==='admin'){ %>
+            
+                <div class="">
+                    <a href="/import">Импортировать контакты</a>
+                 </div>
+                <% } %>
+        <!-- <span><%= user.role %></span> -->
+        
+        <!-- Search -->
+        <form method="GET" action="/search">
+            <h2>Введите данные</h2>
+            <input type="text" name="searchQuery" placeholder="Поиск" id="search-text" onkeyup="tableSearch()">
+            <!-- <input type="submit" value="Search"> -->
+          </form>
+          <h2>Результаты поиска</h2>
+
+          <!-- Table contact -->
+          <table class="table table-bordered" id="info-table">
+           <thead class="table-primary">
+            <tr>
+                <th>Фотография</i></th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Основной раб.телефон</th>
+                <th>Дополнительный раб.телефон</th>
+                <th>Должность</th>
+                <th>Служба</th>
+                <th>Цех/Отдел</th>
+                <th>Участок</th>
+                <% if(user.role ==='admin'){ %>
+                    <th>Действие</th>
+                    <% } %>
+            </tr>
+           </thead>
+           <tbody>
+            <% for (i = 0; i < contacts.length; i++) {
+                contact = contacts[i] %>
+                <td><%= contact.image %></е>
+                <td><%= contact.surname %></td>
+                <td><%= contact.name %></td>
+                <td><%= contact.patronymic %></td>
+                <td><%= contact.primaryp %></td>
+                <td><%= contact.additional %></td>
+                <td><%= contact.job %></td>
+                <td><%= contact.service %></td>
+                <td><%= contact.shop %></td>
+                <th><%= contact.site %> </th>
+                <% if(user.role ==='admin'){ %>
+              <th>
+              <a href= <%='/update?id=' + contact.id %>><button name="button">Изменить</button></i></i></a>
+              <a href= <%= '?delete_id='+ contact.id %> <button name="button">Удалить</button></i></i></a>
+              </th>
+              <% } %>
+            </tbody>
+            <% } %>
+
+          </table>
+          <script>
+function tableSearch() {
+    var phrase = document.getElementById('search-text');
+    var table = document.getElementById('info-table');
+    var regPhrase = new RegExp(phrase.value, 'i');
+    var flag = false;
+    for (var i = 1; i < table.rows.length; i++) {
+        flag = false;
+        for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
+            flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
+            if (flag) break;
+        }
+        if (flag) {
+            table.rows[i].style.display = "";
+        } else {
+            table.rows[i].style.display = "none";
+        }
+
+    }
+}
+          </script>
+    </div>
+</div>
+<%- include('footer'); -%>

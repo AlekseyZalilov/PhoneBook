@@ -1,0 +1,40 @@
+<%- include('header',{
+    title:'Edit'
+}); -%>
+<div class="topnav">
+  <a class="active" href="/">Главная</a>
+</div>
+<div class="container">
+    <h1>Изменить контакт</h1>
+    <form action="" method="post">
+        <label for="contact_image" class="format-label">Выберите фотографию</label>
+        <input type="file" class="input" name="_image"autocomplete="off" id="contact_image" value= <%= edit.image %>>
+        <label for="contact_surname">Фамилия</label>
+        <input type="text" class="input" name="_surname" autocomplete="off" id="contact_surname" placeholder="Измените фамилию" value= <%= edit.surname %>>
+        <label for="contact_name">Имя</label>
+        <input type="text" class="input" name="_name" autocomplete="off" id="contact_name" placeholder="Измените имя" value= <%= edit.name %>>
+        <label for="contact_patronymic">Отчество</label>
+        <input type="text" class="input" name="_patronymic" autocomplete="off" id="contact_patronymic" placeholder="Измените отчество" value= <%= edit.patronymic %>>
+        <label for="contact_primaryp">Основной раб.телефон</label>
+        <input type="text" class="input" name="_primaryp" autocomplete="off" id="contact_primaryp" placeholder="Измените основной раб.телефон" value= <%= edit.primaryp %>>
+        <label for="contact_additional">Дополнительный раб.телефон</label>
+        <input type="text" class="input" name="_additional" autocomplete="off" id="contact_additional" placeholder="Измените дополнительный раб.телефон" value= <%= edit.additional %>>
+        <label for="contact_job">Должность</label>
+        <input type="text" class="input" name="_job" autocomplete="off" id="contact_job" placeholder="Измените должнсоть" value= <%= edit.job %>>
+        <label for="contact_service">Служба</label>
+        <input type="text" class="input" name="_service" autocomplete="off" id="contact_service" placeholder="Измените службу" value= <%= edit.service %>>
+        <label for="contact_shop">Цех/Отдел</label>
+        <input type="text" class="input" name="_shop" autocomplete="off" id="contact_shop" placeholder="Измените Цех/Отдел" value= <%= edit.shop %>>
+        <label for="contact_site">Участок</label>
+        <input type="text" class="input" name="_site" autocomplete="off" id="contact_site" placeholder="Измените участок" value= <%= edit.site %>>
+          <% if(typeof mesage != 'undefined'){ %>
+            <div class="success-msg"><%= mesage %></div><% }
+            if(typeof error !== 'undefined'){ %>
+            <div class="err-msg"><%= error %></div><% } %>
+            <input type="submit" value="Edit">
+      </form>
+      
+</div>
+
+
+<%- include('footer'); -%>
